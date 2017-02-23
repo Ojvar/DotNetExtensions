@@ -120,7 +120,7 @@ namespace System
         {
             string result = "";
 
-			if (!text.isNullOrEmptyOrWhiteSpaces ())
+			if (!text.isEmptyOrNullOrWhiteSpaces ())
 				result = text.Replace ('ي', 'ی').Replace ('ك', 'ک');
 
             return result;
@@ -203,22 +203,7 @@ namespace System
 
             return res;
         }
-
-		/// <summary>
-		/// Check string is empty or null or white spaces
-		/// </summary>
-		/// <param name="text"></param>
-		/// <returns></returns>
-		public static bool isNullOrEmptyOrWhiteSpaces (this string text)
-		{
-			bool result	= false;
-
-			// Check input data
-			result	= (text == null) || (text.Trim ().Length == 0);
-
-			return result;
-		}
-
+		
 		/// <summary>
 		/// Accept float input string
 		/// </summary>
@@ -311,7 +296,7 @@ namespace System
 
 			string	result	= "";
 
-			if (!text.isNullOrEmptyOrWhiteSpaces ())
+			if (!text.isEmptyOrNullOrWhiteSpaces ())
 			{
 				while (text.Length > step)
 				{

@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using BaseDAL.Model;
-using Common.Helper;
 using System.Drawing;
 using System.Data.SqlClient;
 
@@ -132,25 +131,33 @@ namespace System
 
             List<string> cols = new List<string>();
 
-            if ((null != table) && (0 < table.Rows.Count))
+            if (null != table)
             {
                 /// I used loop by for syntax because Columns collection does change after adding new column and we have an exeption on it.
                 for (int i = 0; i < table.Columns.Count; i++)
-                    if (table.Columns[i].DataType == typeof(DateTime))
-                    {
-                        // Add to list
-                        cols.Add(table.Columns[i].ColumnName);
+				{
+					if (table.Columns[i].DataType == typeof(DateTime))
+					{
+						// Add to list
+						cols.Add(table.Columns[i].ColumnName);
 
-                        // Create a new column
-                        table.Columns.Add(table.Columns[i].ColumnName + postfix, typeof(string));
-                        table.Columns[table.Columns[i].ColumnName + postfix].SetOrdinal(table.Columns[i].Ordinal + 1);
-                    }
+						// Create a new column
+						table.Columns.Add(table.Columns[i].ColumnName + postfix, typeof(string));
+						table.Columns[table.Columns[i].ColumnName + postfix].SetOrdinal(table.Columns[i].Ordinal + 1);
+					}
+				}
 
                 // Convert data
                 foreach (DataRow row in table.Rows)
+				{
                     foreach (string col in cols)
+					{
                         if ((null != row[col]) && (row[col].GetType() != typeof(DBNull)))
+						{
                             row[col + postfix] = DateTime.Parse(row[col].ToString()).toPersianDate();
+						}
+					}
+				}
             }
 
             return table;

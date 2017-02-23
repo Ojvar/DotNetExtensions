@@ -41,34 +41,21 @@ namespace System
 		/// </summary>
 		/// <param name="cmb"></param>
 		/// <param name="dataList"></param>
-		/// <param name="value">ValueMember</param>
-		/// <param name="display">DisplayMember</param>
-		public static void fillComboBox (this ComboBox comboBox, Array dataList, string value, string display = "")
+		/// <param name="valueMember">ValueMember</param>
+		/// <param name="displayMember">DisplayMember</param>
+		public static void fillComboBox (this ComboBox comboBox, Array dataList, string valueMember, string displayMember = "")
 		{
-            if(display.isNullOrEmptyOrWhiteSpaces ())
-                display = value;
+            if(displayMember.isEmptyOrNullOrWhiteSpaces())
+                displayMember = valueMember;
             
 			comboBox.DataSource		= dataList;
-			if (dataList != null)
+			if (!(valueMember.isEmptyOrNullOrWhiteSpaces ()) && (dataList != null))
 			{
-				comboBox.ValueMember	= value;
-				comboBox.DisplayMember	= display;
+				comboBox.ValueMember	= valueMember;
+				comboBox.DisplayMember	= displayMember;
 			}
-			if(value == "")
-                comboBox.DataSource = null;
-		}
-
-		/// <summary>
-		/// Fill comboBox by ComboItemModel array
-		/// </summary>
-		/// <param name="comboBox"></param>
-		/// <param name="items"></param>
-		public static void fillComboBox (this ComboBox comboBox, Common.Models.ComboItemModel [] items)
-		{
-            if (null != items)
-				comboBox.Items.AddRange (items);
-			else if (comboBox.Items.Count > 0)
-				comboBox.Items.Clear ();
+            else
+				comboBox.DataSource = null;
 		}
 
 		/// <summary>

@@ -27,12 +27,12 @@ namespace System
 				int m;
 				int d;
 
-				result	= int.TryParse (datePart[0], out y) &&
-					int.TryParse (datePart[1], out m) &&
-					int.TryParse (datePart[2], out d) &&
-					((y >= 1300) && (y <= 9999)) &&
-					((m > 0) && (m < 13)) &&
-					((d > 0) && (d < 32));
+				result	= int.TryParse (datePart[0], out y)
+					&& int.TryParse (datePart[1], out m)
+					&& int.TryParse (datePart[2], out d)
+					&& ((y >= 1300) && (y <= 9999))
+					&& ((m > 0) && (m < 13))
+					&& ((d > 0) && (d < 32));
 			}
 
 			return result;
@@ -88,7 +88,7 @@ namespace System
 		{
 			bool result	= true;
 
-			if (!date.isNullOrEmptyOrWhiteSpaces ())
+			if (!date.isEmptyOrNullOrWhiteSpaces ())
 				result	= (date.Replace ("/", "").Trim ().Length == 0);
 
 			return result;
